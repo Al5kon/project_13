@@ -7,6 +7,8 @@ const path = require('path');
 
 const mongoose = require('mongoose');
 
+const bodyParser = require('body-parser');
+
 const router = require('./routes/users.js');
 
 const routerCards = require('./routes/cards.js');
@@ -24,6 +26,7 @@ mongoose.connect('mongodb://localhost:27017/mestodb', {
   .catch((e) => console.log(e));
 
 app.use(express.static(path.join(__dirname, 'public')));
+app.post('/users', bodyParser.json(), router);
 app.use('/users', router);
 app.use('/cards', routerCards);
 app.use((req, res) => {

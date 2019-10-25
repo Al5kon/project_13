@@ -18,7 +18,7 @@ function errMessage(err) {
   }
 }
 
-router.use('/:_id', (req, res) => {
+router.get('/:_id', (req, res) => {
    fs.readFile(userPath, { encoding: 'utf8' }, (err, data) => {
     errMessage(err);
     const users = JSON.parse(data);
@@ -34,8 +34,16 @@ router.use('/:_id', (req, res) => {
     }
   });
 });
+const User = require('../models/user');
 
-router.use('/', (req, res) => {
+router.post('/', (req, res) => {
+  const { name, about } = req.body;
+  User.create({ name, about })
+        .then((user) => res.send({ data: user }))
+        .catch(() => res.status(500).send({ message: 'Произошла ошибка' }));
+});
+
+router.get('/', (req, res) => {
   fs.readFile(userPath, { encoding: 'utf8' }, (err, data) => {
     errMessage(err);
     res.end(data);

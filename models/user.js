@@ -3,7 +3,7 @@
 const mongoose = require('mongoose');
 
 const validator = function (v) {
-  return /href\=\"(.*)\"/.test(v);
+  return /[-a-zA-Z0-9@:%_\+.~#?&\/=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&\/=]*)?/gi;
 };
 
 const userSchema = new mongoose.Schema({
