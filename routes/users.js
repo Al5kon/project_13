@@ -1,8 +1,8 @@
+/* eslint-disable no-console */
 /* eslint-disable indent */
 /* eslint-disable no-useless-return */
 /* eslint-disable quote-props */
 /* eslint-disable quotes */
-/* eslint-disable no-underscore-dangle */
 /* eslint-disable no-plusplus */
 const router = require('express').Router();
 

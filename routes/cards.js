@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 const routerCards = require('express').Router();
 
 const path = require('path');

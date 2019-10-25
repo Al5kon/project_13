@@ -19,6 +19,7 @@
   "homepage": "https://github.com/Al5kon/project_13#readme",
   "dependencies": {
     "express": "^4.17.1",
+    "mongoose": "^5.7.6",
     "utf8": "^3.0.0"
   },
   "devDependencies": {
