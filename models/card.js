@@ -1,13 +1,11 @@
+/* eslint-disable arrow-parens */
+/* eslint-disable object-shorthand */
 /* eslint-disable func-names */
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-useless-escape */
 const mongoose = require('mongoose');
 
 const userModel = require('./user');
-
-const validator = function (v) {
-  return /[-a-zA-Z0-9@:%_\+.~#?&\/=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&\/=]*)?/gi;
-};
 
 const cardSchema = new mongoose.Schema({
   name: {
@@ -19,8 +17,12 @@ const cardSchema = new mongoose.Schema({
   link: {
     type: String,
     required: true,
-    validate:
-      [validator, 'It is not a valid link'],
+    validate: {
+      validator: function (v) {
+        return /[-a-zA-Z0-9@:%_\+.~#?&\/=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&\/=]*)?/gi.test(v);
+      },
+      message: props => `${props.value} is not a valid link!`,
+    },
   },
   owner: {
     type: mongoose.Schema.Types.ObjectId,
@@ -34,6 +36,7 @@ const cardSchema = new mongoose.Schema({
   }],
   createdAt: {
     type: Date,
+    default: Date.now,
   },
 });
 
