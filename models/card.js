@@ -1,10 +1,12 @@
+/* eslint-disable func-names */
+/* eslint-disable no-unused-vars */
 /* eslint-disable no-useless-escape */
 const mongoose = require('mongoose');
 
 const userModel = require('./user');
 
 const validator = function (v) {
-  return /href\=\"(.*)\"/.test(v);
+  return /[-a-zA-Z0-9@:%_\+.~#?&\/=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&\/=]*)?/gi;
 };
 
 const cardSchema = new mongoose.Schema({
