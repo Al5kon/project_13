@@ -13,3 +13,4 @@ Create server
 ### v0.0.5 Create cards controllers and routers, delete data and public folders
 ### v0.0.7 Add some changes
 ### v0.0.7 Bug fixes
+### v0.0.8 Add _id

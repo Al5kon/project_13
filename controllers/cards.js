@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const Card = require('../models/card');
 
+
 module.exports.getAllCards = router.get('/', (req, res) => {
   Card.find({})
     .then((card) => res.send({ data: card }))
@@ -8,7 +9,8 @@ module.exports.getAllCards = router.get('/', (req, res) => {
 });
 
 module.exports.postCard = router.post('/', (req, res) => {
-  const { name, link, owner } = req.body;
+  const owner = req.user;
+  const { name, link } = req.body;
   Card.create({ name, link, owner })
     .then((card) => res.send({ data: card }))
     .catch((err) => res.status(500).send({ message: `Произошла ошибка ${err}` }));
@@ -16,6 +18,12 @@ module.exports.postCard = router.post('/', (req, res) => {
 
 module.exports.deleteCardByCardId = router.delete('/:cardId', (req, res) => {
   Card.findByIdAndRemove(req.params.cardId)
-    .then((card) => res.send({ data: card }))
-    .catch((err) => res.status(500).send({ message: `Произошла ошибка ${err}` }));
+    .then((card) => {
+      if (!card) {
+        res.status(404).send({ message: 'Такой карточки не существует' });
+        return;
+      }
+      res.send({ data: card });
+    })
+    .catch(() => res.status(500).send({ message: 'Произошла ошибка' }));
 });
