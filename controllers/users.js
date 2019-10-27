@@ -3,7 +3,13 @@ const User = require('../models/user');
 
 module.exports.getUserById = router.get('/:_id', (req, res) => {
   User.findById(req.params._id)
-    .then((user) => res.send({ data: user }))
+    .then((user) => {
+      if (!user) {
+        res.status(404).send({ message: 'Такого пользователя не существует' });
+        return;
+      }
+      res.send({ data: user });
+    })
     .catch(() => res.status(500).send({ message: 'Произошла ошибка' }));
 });
 
